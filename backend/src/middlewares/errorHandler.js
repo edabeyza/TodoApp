@@ -2,7 +2,7 @@
 
 module.exports = (err, req, res, next) => {
     
-    const statusCode = res.statusCode ?? 500
+    const statusCode =  err.statusCode || res.statusCode|| 500;
     console.error(err)
 
     res.status(statusCode).send({

@@ -1,6 +1,8 @@
 "use strict"
 
+const CustomError = require('../helper/customError')
 const Todo = require('../models/todo')
+const mongoose = require('mongoose')
 
 module.exports = {
 
@@ -26,8 +28,18 @@ module.exports = {
 
     read: async (req, res) => {
 
+        const isValid = mongoose.Types.ObjectId.isValid(req.params.id)
+        
+        if (!isValid) {
+            throw new CustomError('Invalid ID', 400)
+        }
+        console.log(isValid)
+
         const data = await Todo.findOne({_id: req.params.id})
 
+        if (!data) {
+            throw new CustomError('Data not found', 404)
+        }
         res.status(200).send({
             isError: false,
             data
@@ -50,13 +62,15 @@ module.exports = {
 
     delete: async (req, res) => {
 
-        const deletedCount = await Todo.deleteOne({_id: req.params.id})
+        const  {deletedCount} = await Todo.deleteOne({_id: req.params.id})
 
-        if ( !deletedCount ) console.log('Silinmedi');
+        if (!deletedCount) {
+            throw new CustomError('Data not found', 404)
+        }
+
 
         res.status(204).send({
-            isError: false,
-            data
+            isError: false
         })
         
     }
