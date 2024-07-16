@@ -19,4 +19,6 @@ app.all('/', (req, res) => {
     })
 })
 
+app.use(require('./src/middlewares/errorHandler'))
+
 app.listen(PORT, () => console.log(`listening at http://127.0.0.1:`+ PORT))
