@@ -11,4 +11,4 @@ router.route('/todo/:id')
     .patch(todo.update)
     .delete(todo.delete)
 
-module.exports = router
+module.exports = router, todo

@@ -37,7 +37,9 @@ module.exports = {
 
     update: async (req, res) => {
 
-        const data = await Todo.updateOne({_id: req.params.id}, req.body)
+        // const data = await Todo.updateOne({_id: req.params.id}, req.body)
+        // const updatedData = await Todo.findOne({_id: req.params.id})
+        const data = await Todo.findByIdAndUpdate(req.params.id,req.body,{new:true}); 
 
         res.status(201).send({
             isError: false,
@@ -48,7 +50,9 @@ module.exports = {
 
     delete: async (req, res) => {
 
-        const data = await Todo.deleteOne({_id: req.params.id})
+        const deletedCount = await Todo.deleteOne({_id: req.params.id})
+
+        if ( !deletedCount ) console.log('Silinmedi');
 
         res.status(204).send({
             isError: false,
