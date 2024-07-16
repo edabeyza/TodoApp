@@ -9,6 +9,9 @@ const PORT = process.env.PORT || 8000
 
 require('express-async-errors')
 
+// Middlewares
+app.use(express.json()) // app.use her res/req için çalışır
+
 // Configurations
 require('./src/configs/dbConnection')()
 
