@@ -35,7 +35,5 @@ const todoSchema = new Schema({
     timestamps: true
 })
 
-// Model names supposed to be written with PascalCase
-module.exports = {
-    Todo: model('Todo', todoSchema)
-}
+// Model names supposed to be written in PascalCase
+module.exports = model('Todo', todoSchema)
